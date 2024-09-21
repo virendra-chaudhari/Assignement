@@ -1,6 +1,6 @@
-<div class="container my-5">
+<div class="container my-2">
     <div class="row justify-content-center">
-      <div class="col-lg-9">
+      <div class="col-lg-12">
         <div class="modal-header">
           <h4 class="modal-title" id="modal-basic-title">{{!this.task ? 'New Task':'Update Task'}}</h4>
           <button (click)=" modalService.dismissAll()"
@@ -42,7 +42,8 @@
                }
               </div>
               </div>
-              <div class="col-md-6">
+              <div class="row g-3 mt-1">
+              <div class="col-md-6 m-0">
                 <label for="your-email" class="form-label">Due Date</label>
                 <input
                   type="date"
@@ -52,7 +53,7 @@
                   formControlName="dueDate"
                 />
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 m-0">
                 <label for="your-subject" class="form-label"><span class="text-danger">*</span>Priority</label>
                 <select class="form-select" aria-label="Default select example" formControlName="priority"  [ngClass]="{ 'is-invalid':(addNewTaskControls['priority'].touched ||addNewTaskControls['priority'].dirty) && addNewTaskControls['priority'].errors}">
                   <option selected>select Priority</option>
@@ -60,13 +61,14 @@
                   <option value="Normal">Normal</option>
                   <option value="Low">Low</option>
                 </select>
+              </div>
                @if ((addNewTaskControls['priority'].touched ||addNewTaskControls['priority'].dirty) && addNewTaskControls['priority'].errors) {
                   <div class="invalid-feedback"> 
                       <small>Prioriy required</small>
                   </div>
                }
               </div>
-              <div class="col-12">
+              <div class="col-12 mt-1">
                 <label for="your-message" class="form-label">Comment</label>
                 <textarea
                   class="form-control"
@@ -81,11 +83,11 @@
         <div class="modal-footer">
           <div class="col-12">
             <div class="row">
-              <div class="col-md-6">
-                <button type="submit" class="btn btn-dark w-100 fw-bold" (click)="modalService.dismissAll()">
+              <div class="col-md-6 d-flex">
+                <button type="submit" class="btn btn-danger w-100 fw-bold me-2" (click)="modalService.dismissAll()">
                   Cancel
                 </button>
-                <button type="submit" class="btn btn-dark w-100 fw-bold" [disabled]="!addNewTaskForm.valid" (click)="this.task? updateTask():saveNewTask()">
+                <button type="submit" class="btn btn-success w-100 fw-bold" [disabled]="!addNewTaskForm.valid" (click)="this.task? updateTask():saveNewTask()">
                   {{this.task ? "Update":"Save"}}
                 </button>
               </div>
