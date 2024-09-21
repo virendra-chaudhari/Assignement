@@ -37,6 +37,7 @@ export class AppComponent {
   pageSize: number = 10;
   public searchTask: UntypedFormControl = new UntypedFormControl();
   taskEmitterObservable: Subject<Task> = new Subject<Task>();
+  nofifyRefreshObservable:Subject<boolean> = new Subject<boolean>()
   @ViewChild("addTaskTemp") addTaskTemp!: ElementRef;
 
   constructor(
@@ -53,7 +54,7 @@ export class AppComponent {
   ngOnInit(): void {
     this.searchTask.valueChanges
       .pipe(debounceTime(500), distinctUntilChanged())
-      .subscribe((searchText) => {
+      .subscribe((searchText:string) => {
         if (searchText.length) {
           const lowercasedTerm = searchText.toLowerCase();
           // Filter the array based on the search term in either 'name' or 'comments' or 'priority' or 'status'

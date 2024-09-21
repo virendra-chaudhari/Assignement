@@ -59,7 +59,6 @@ export class TaskFormComponent {
       ...this.addNewTaskForm.value,
       id: this.generateUniqueId(),
     };
-    console.log(_newTaskObj);
     this.taskService.saveTask(_newTaskObj).subscribe({
       next: (taskRes) => {
         if (taskRes.status_code == 200) {

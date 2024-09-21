@@ -36,7 +36,7 @@
                     >
                        New Task
                     </button>
-                    <button type="button" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" (click)="observableNofityService.notifyRefresh();searchTask.patchValue('')">
                       Refresh
                     </button>
                   </div>
@@ -64,6 +64,7 @@
             <app-task-list
               [taskList]="taskList"
               (taskEmitter)="getTaskById($event)"
+              [nofifyRefreshObservable$]="nofifyRefreshObservable"
             ></app-task-list>
           </div>
         </div>

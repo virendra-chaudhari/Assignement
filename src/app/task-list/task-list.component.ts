@@ -6,6 +6,7 @@ import { TaskService } from "../services/task.service";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { ToastrModule, ToastrService } from "ngx-toastr";
+import { Subject } from "rxjs";
 
 @Component({
   selector: "app-task-list",
@@ -21,15 +22,23 @@ export class TaskListComponent {
   pageSize:number =5;
   task!:Task
 
+  @Input() nofifyRefreshObservable$!:Subject<boolean>
   constructor(
     public observableNofityService: ObservableNotifyService,
     public taskService: TaskService,
     public modalServide:NgbModal,
     public toastr: ToastrService,
   ) {
-    this.observableNofityService.updateInTask().subscribe((res) => {
+  /*   this.observableNofityService.updateInTask().subscribe((res) => {
       if (res) {
         //this.getTaskList();
+      }
+    }); */
+
+    this.observableNofityService.updateRefreshStatus().subscribe((res) => {
+      if (res) {
+       this.page = 1;
+       this.pageSize = 5;
       }
     });
   }
@@ -37,6 +46,7 @@ export class TaskListComponent {
   @Output() taskEmitter =  new EventEmitter<string>()
   @ViewChild("deleteTaskTem") deleteTaskTem!: ElementRef;
   ngOnInit(): void {
+  
   }
 
  
