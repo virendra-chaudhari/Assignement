@@ -3,7 +3,7 @@
       <div class="col-lg-9">
         <div class="modal-header">
           <h4 class="modal-title" id="modal-basic-title">New Task</h4>
-          <button
+          <button (click)=" modalService.dismissAll()"
             type="button"
             class="btn-close"
             aria-label="Close"
@@ -16,12 +16,12 @@
                 <label for="your-name" class="form-label"><span class="text-danger">*</span> Assigned To</label>
                 <select class="form-select" aria-label="Default select example" formControlName="assignedTo" [ngClass]="{ 'is-invalid':(addNewTaskControls['assignedTo'].touched ||addNewTaskControls['assignedTo'].dirty) && addNewTaskControls['assignedTo'].errors}">
                   <option value="null">select User</option>
-                  <option value="1">User 1</option>
-                  <option value="2">User 2</option>
-                  <option value="3">User 3</option>
-                  <option value="4">User 4</option>
+                  <option value="User 1">User 1</option>
+                  <option value="User 2">User 2</option>
+                  <option value="User 3">User 3</option>
+                  <option value="User 4">User 4</option>
                 </select>
-                @if ((addNewTaskControls['priority'].touched ||addNewTaskControls['priority'].dirty) && addNewTaskControls['priority'].errors) {
+                @if ((addNewTaskControls['assignedTo'].touched ||addNewTaskControls['assignedTo'].dirty) && addNewTaskControls['assignedTo'].errors) {
                   <div class="invalid-feedback"> 
                       <small>Assigned To required</small>
                   </div>
@@ -31,9 +31,9 @@
                 <label for="your-surname" class="form-label"><span class="text-danger">*</span>Status</label>
                 <select class="form-select" aria-label="Default select example" formControlName="status" [ngClass]="{ 'is-invalid':(addNewTaskControls['status'].touched ||addNewTaskControls['status'].dirty) && addNewTaskControls['status'].errors}">
                   <option value="null">select Status</option>
-                  <option value="1">Completed</option>
-                  <option value="2">In progress</option>
-                  <option value="3">Not started</option>
+                  <option value="Completed">Completed</option>
+                  <option value="In progress">In progress</option>
+                  <option value="Not started">Not started</option>
                 </select>
                 @if ((addNewTaskControls['status'].touched ||addNewTaskControls['status'].dirty) && addNewTaskControls['status'].errors) {
                   <div class="invalid-feedback"> 
@@ -56,9 +56,9 @@
                 <label for="your-subject" class="form-label"><span class="text-danger">*</span>Priority</label>
                 <select class="form-select" aria-label="Default select example" formControlName="priority"  [ngClass]="{ 'is-invalid':(addNewTaskControls['priority'].touched ||addNewTaskControls['priority'].dirty) && addNewTaskControls['priority'].errors}">
                   <option selected>select Priority</option>
-                  <option value="1">High</option>
-                  <option value="2">Normal</option>
-                  <option value="3">Low</option>
+                  <option value="High">High</option>
+                  <option value="Normal">Normal</option>
+                  <option value="Low">Low</option>
                 </select>
                @if ((addNewTaskControls['priority'].touched ||addNewTaskControls['priority'].dirty) && addNewTaskControls['priority'].errors) {
                   <div class="invalid-feedback"> 
@@ -82,10 +82,10 @@
           <div class="col-12">
             <div class="row">
               <div class="col-md-6">
-                <button type="submit" class="btn btn-dark w-100 fw-bold">
+                <button type="submit" class="btn btn-dark w-100 fw-bold" (click)="modalService.dismissAll()">
                   Cancel
                 </button>
-                <button type="submit" class="btn btn-dark w-100 fw-bold" disabled="!addNewTaskForm.valid">
+                <button type="submit" class="btn btn-dark w-100 fw-bold" [disabled]="!addNewTaskForm.valid" (click)="saveNewTask()">
                   Save
                 </button>
               </div>

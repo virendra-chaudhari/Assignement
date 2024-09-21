@@ -17,28 +17,28 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>
-          <span class="custom-checkbox">
-            <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-            <label for="checkbox1"></label>
-          </span>
-        </td>
-        <td>Thomas Hardy</td>
-        <td>thomashardy.com</td>
-        <td>89 Chiaroscuro Rd, Portland, USA</td>
-        <td>(171) 555-2222</td>
-        <td>
-          some comments
-          >
-        </td>
-        <td>
-          <select class="form-select" aria-label="Default select example">
-            <option value="1">Edit</option>
-            <option value="4">Delete</option>
-          </select>
-        </td>
-      </tr>
+      @for (task of taskList; track $index) {
+        <tr>
+          <td>
+            <span class="custom-checkbox">
+              <input type="checkbox" id="checkbox1" name="options[]" value="1" />
+              <label for="checkbox1"></label>
+            </span>
+          </td>
+          <td>{{task.assignedTo}}</td>
+          <td>{{task.status}}</td>
+          <td>{{task.dueDate}}</td>
+          <td>{{task.priority}}</td>
+          <td>{{task.comment}}</td>
+          <td>
+            <select class="form-select" aria-label="Default select example">
+              <option value="1">Edit</option>
+              <option value="4">Delete</option>
+            </select>
+          </td>
+        </tr>
+      }
+      
     </tbody>
   </table>
   <div class="clearfix">
