@@ -33,7 +33,7 @@
           <td>
             <select class="form-select" aria-label="Default select example" #taskActionvalue (click)="taskAction(taskActionvalue.value, task.id)">
               <option value="edit">Edit</option>
-              <option value="delete">Delete</option>
+              <option value="delete" >Delete</option>
             </select>
           </td>
         </tr>
@@ -54,3 +54,19 @@
     </ul>
   </div>
 </div>
+
+<ng-template #deleteTaskTemp>
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-basic-title">Delete</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Do you want to delete task</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Yes</button>
+          <button type="button" class="btn btn-danger">No</button>
+        </div>
+</ng-template>
