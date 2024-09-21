@@ -1,20 +1,53 @@
 .search_icon {
-    position: absolute;
-    left: 5px;
-    top: 3px;
-    height: 32px;
-    width: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #3e3e3e;
-  }
+  position: absolute;
+  left: 5px;
+  top: 3px;
+  height: 32px;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3e3e3e;
+}
 
-  .search-icon {
-    top: 9px;
-    padding-right: 17px !important;
-  }
+.search-icon {
+  top: 9px;
+  padding-right: 17px !important;
+}
 
-  .add-new-task {
-    border-right: 2px solid white;
+.add-new-task {
+  border-right: 2px solid white;
+}
+
+.fa-list-check {
+  background-color: #d80055;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.records {
+  position: absolute;
+  left: 20px;
+  top: 5px;
+}
+
+.adjust_div {
+  margin-top: -15px;
+}
+
+.all_task {
+  position: absolute;
+  bottom: -5px;
+  left: 13px;
+}
+
+
+
+@media screen and (max-width: 767px) {
+  .adjust_div {
+    margin-top: 0;
+    margin-bottom: 10px;
   }
+}
