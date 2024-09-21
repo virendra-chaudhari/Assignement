@@ -33,7 +33,7 @@ export class AppComponent {
   task!: Task;
   taskList: Task[] = [];
   allTaskBackup: Task[] = [];
-  currentPage: number = 1;
+  page: number = 1;
   pageSize: number = 10;
   public searchTask: UntypedFormControl = new UntypedFormControl();
   taskEmitterObservable: Subject<Task> = new Subject<Task>();
@@ -46,7 +46,7 @@ export class AppComponent {
   ) {
     this.observableNofityService.updateInTask().subscribe((res) => {
       if (res) {
-        this.getTaskList();
+        this.getAllTaskList();
       }
     });
   }
@@ -66,7 +66,7 @@ export class AppComponent {
           );
           this.taskList = filteredData;
         } else {
-          const startIndex = (this.currentPage - 1) * this.pageSize;
+          const startIndex = (this.page - 1) * this.pageSize;
           this.taskList = this.allTaskBackup.slice(
             startIndex,
             startIndex + this.pageSize
@@ -93,14 +93,14 @@ export class AppComponent {
       );
     }
 
-    this.getTaskList();
+    this.getAllTaskList();
   }
 
-  getTaskList() {
+  getAllTaskList() {
     this.taskService.getAllTask().subscribe({
       next: (taskListRes) => {
         if (taskListRes.status_code == 200) {
-          this.taskList = taskListRes.body;
+          this.taskList =  taskListRes.body;
           this.allTaskBackup = [...taskListRes.body];
         }
       },
