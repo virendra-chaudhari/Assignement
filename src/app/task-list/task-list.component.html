@@ -31,9 +31,9 @@
           <td>{{task.priority}}</td>
           <td>{{task.comment}}</td>
           <td>
-            <select class="form-select" aria-label="Default select example">
-              <option value="1">Edit</option>
-              <option value="4">Delete</option>
+            <select class="form-select" aria-label="Default select example" #taskActionvalue (click)="taskAction(taskActionvalue.value, task.id)">
+              <option value="edit">Edit</option>
+              <option value="delete">Delete</option>
             </select>
           </td>
         </tr>

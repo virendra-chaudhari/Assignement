@@ -38,5 +38,18 @@ export class TaskListComponent {
         console.error("Error fetching tasks", error);
       },
     });
+  };
+
+  taskAction(action:string, taskId:string){
+    switch(action){
+      case 'delete':
+              // code to delete task
+              break;
+            case 'edit':
+            
+              break;
+            default:
+              // code to do nothing
+    }
   }
 }
