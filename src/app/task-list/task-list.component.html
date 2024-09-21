@@ -55,10 +55,10 @@
   </div>
 </div>
 
-<ng-template #deleteTaskTemp>
+<ng-template #deleteTask>
         <div class="modal-header">
           <h5 class="modal-title" id="modal-basic-title">Delete</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="this.modalServide.dismissAll()">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -67,6 +67,6 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-success" data-dismiss="modal">Yes</button>
-          <button type="button" class="btn btn-danger">No</button>
+          <button type="button" class="btn btn-danger" (click)="this.modalServide.dismissAll()">No</button>
         </div>
 </ng-template>
