@@ -1,1 +1,98 @@
-<p>task-form works!</p>
+<div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-9">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">New Task</h4>
+          <button
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form  [formGroup]="addNewTaskForm">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="your-name" class="form-label"><span class="text-danger">*</span> Assigned To</label>
+                <select class="form-select" aria-label="Default select example" formControlName="assignedTo" [ngClass]="{ 'is-invalid':(addNewTaskControls['assignedTo'].touched ||addNewTaskControls['assignedTo'].dirty) && addNewTaskControls['assignedTo'].errors}">
+                  <option value="null">select User</option>
+                  <option value="1">User 1</option>
+                  <option value="2">User 2</option>
+                  <option value="3">User 3</option>
+                  <option value="4">User 4</option>
+                </select>
+                @if ((addNewTaskControls['priority'].touched ||addNewTaskControls['priority'].dirty) && addNewTaskControls['priority'].errors) {
+                  <div class="invalid-feedback"> 
+                      <small>Assigned To required</small>
+                  </div>
+               }
+              </div>
+              <div class="col-md-6">
+                <label for="your-surname" class="form-label"><span class="text-danger">*</span>Status</label>
+                <select class="form-select" aria-label="Default select example" formControlName="status" [ngClass]="{ 'is-invalid':(addNewTaskControls['status'].touched ||addNewTaskControls['status'].dirty) && addNewTaskControls['status'].errors}">
+                  <option value="null">select Status</option>
+                  <option value="1">Completed</option>
+                  <option value="2">In progress</option>
+                  <option value="3">Not started</option>
+                </select>
+                @if ((addNewTaskControls['status'].touched ||addNewTaskControls['status'].dirty) && addNewTaskControls['status'].errors) {
+                  <div class="invalid-feedback"> 
+                      <small>Status required</small>
+                  </div>
+               }
+              </div>
+              </div>
+              <div class="col-md-6">
+                <label for="your-email" class="form-label">Due Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="your-email"
+                  name="your-email"
+                  formControlName="dueDate"
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="your-subject" class="form-label"><span class="text-danger">*</span>Priority</label>
+                <select class="form-select" aria-label="Default select example" formControlName="priority"  [ngClass]="{ 'is-invalid':(addNewTaskControls['priority'].touched ||addNewTaskControls['priority'].dirty) && addNewTaskControls['priority'].errors}">
+                  <option selected>select Priority</option>
+                  <option value="1">High</option>
+                  <option value="2">Normal</option>
+                  <option value="3">Low</option>
+                </select>
+               @if ((addNewTaskControls['priority'].touched ||addNewTaskControls['priority'].dirty) && addNewTaskControls['priority'].errors) {
+                  <div class="invalid-feedback"> 
+                      <small>Prioriy required</small>
+                  </div>
+               }
+              </div>
+              <div class="col-12">
+                <label for="your-message" class="form-label">Comment</label>
+                <textarea
+                  class="form-control"
+                  id="your-message"
+                  name="your-message"
+                  rows="5"
+                  formControlName="comment"
+                ></textarea>
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-md-6">
+                <button type="submit" class="btn btn-dark w-100 fw-bold">
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-dark w-100 fw-bold">
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

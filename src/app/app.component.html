@@ -20,7 +20,7 @@
             <div class="row">
               <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="btn-group w-100">
-                  <button type="button" class="btn btn-primary">Add New Task</button>
+                  <button type="button" class="btn btn-primary" (click)="addNewTask()">Add New Task</button>
                   <button type="button" class="btn btn-primary">Refresh</button>
                 </div>
               </div>
@@ -43,6 +43,10 @@
     </div>
   </div>
 </div>
+
+<ng-template #addTaskTemp>
+  <app-task-form></app-task-form>
+</ng-template>
 
 <!-- 
 <div id="addEmployeeModal" class="modal fade">
