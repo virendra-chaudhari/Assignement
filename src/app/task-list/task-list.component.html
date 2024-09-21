@@ -18,55 +18,82 @@
     </thead>
     <tbody>
       @for (task of taskList; track $index) {
-        <tr>
-          <td>
-            <span class="custom-checkbox">
-              <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-              <label for="checkbox1"></label>
-            </span>
-          </td>
-          <td>{{task.assignedTo}}</td>
-          <td>{{task.status}}</td>
-          <td>{{task.dueDate}}</td>
-          <td>{{task.priority}}</td>
-          <td>{{task.comment}}</td>
-          <td>
-            <select class="form-select" aria-label="Default select example" #taskActionvalue (click)="taskAction(taskActionvalue.value, task.id)">
-              <option value="edit">Edit</option>
-              <option value="delete" >Delete</option>
-            </select>
-          </td>
-        </tr>
+      <tr>
+        <td>
+          <span class="custom-checkbox">
+            <input type="checkbox" id="checkbox1" name="options[]" value="1" />
+            <label for="checkbox1"></label>
+          </span>
+        </td>
+        <td>{{ task.assignedTo }}</td>
+        <td>{{ task.status }}</td>
+        <td>{{ task.dueDate }}</td>
+        <td>{{ task.priority }}</td>
+        <td>{{ task.comment }}</td>
+        <td>
+          <select
+            class="form-select action_drop"
+            aria-label="Default select example"
+            #taskActionvalue
+            (click)="taskAction(taskActionvalue.value, task.id)"
+          >
+            <option value="edit">Edit</option>
+            <option value="delete">Delete</option>
+          </select>
+        </td>
+      </tr>
       }
-      
     </tbody>
   </table>
   <div class="clearfix p-2">
-    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-    <ul class="pagination">
-      <li class="page-item disabled"><a href="#">Previous</a></li>
+    <!-- <div class="">Showing <b>5</b> out of <b>25</b> entries</div> -->
+    <div class="hint-text">
+      <select class="form-select page_drop" aria-label="Default select example">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+      </select>
+    </div>
+    <ul class="pagination border">
+      <li class="page-item disabled"><a href="#" class="page-link">First</a></li>
+      <li class="page-item disabled"><a href="#" class="page-link">Prev</a></li>
       <li class="page-item"><a href="#" class="page-link">1</a></li>
       <li class="page-item"><a href="#" class="page-link">2</a></li>
       <li class="page-item active"><a href="#" class="page-link">3</a></li>
       <li class="page-item"><a href="#" class="page-link">4</a></li>
       <li class="page-item"><a href="#" class="page-link">5</a></li>
       <li class="page-item"><a href="#" class="page-link">Next</a></li>
+      <li class="page-item"><a href="#" class="page-link">Last</a></li>
     </ul>
   </div>
 </div>
 
 <ng-template #deleteTask>
-        <div class="modal-header">
-          <h5 class="modal-title" id="modal-basic-title">Delete</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="this.modalServide.dismissAll()">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Do you want to delete task</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-dismiss="modal">Yes</button>
-          <button type="button" class="btn btn-danger" (click)="this.modalServide.dismissAll()">No</button>
-        </div>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">Delete</h5>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="this.modalServide.dismissAll()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Do you want to delete task</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" data-dismiss="modal">
+      Yes
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="this.modalServide.dismissAll()"
+    >
+      No
+    </button>
+  </div>
 </ng-template>
