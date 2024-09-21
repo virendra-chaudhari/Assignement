@@ -6,6 +6,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { CommonModule } from '@angular/common';
+import { TaskService } from './services/task.service';
+import { Task } from './interface/task.interface';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -15,8 +18,10 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   title = 'engigma-assignment';
+  task!:Task;
+  taskEmitterObservable:Subject<Task> = new Subject<Task>();
   @ViewChild("addTaskTemp") addTaskTemp!: ElementRef;
-  constructor(public modalServide:NgbModal){
+  constructor(public modalServide:NgbModal, public taskService:TaskService){
    
   }
   ngOnInit(): void {
@@ -27,7 +32,18 @@ export class AppComponent {
 
   addNewTask(){
     this.modalServide.open(this.addTaskTemp);
-    this
   }
   
+  getTaskById(taskId:string){
+    this.taskService.getTaskById(taskId).subscribe((task) =>{
+      console.log(task)
+      if(task.status_code == 200){
+        this.task =  task.body;
+        this.addNewTask();
+       setTimeout(() => {
+        this.taskEmitterObservable.next(this.task);
+       }, 100);
+      }
+    })
+  }
 }
