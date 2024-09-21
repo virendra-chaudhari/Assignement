@@ -9,6 +9,7 @@ import { CommonModule } from "@angular/common";
 import { TaskService } from "./services/task.service";
 import { Task } from "./interface/task.interface";
 import { Subject } from "rxjs";
+import { ObservableNotifyService } from "./services/observable-notify.service";
 @Component({
   selector: "app-root",
   standalone: true,
@@ -19,9 +20,17 @@ import { Subject } from "rxjs";
 export class AppComponent {
   title = "engigma-assignment";
   task!: Task;
+  taskList:Task[]= []
   taskEmitterObservable: Subject<Task> = new Subject<Task>();
   @ViewChild("addTaskTemp") addTaskTemp!: ElementRef;
-  constructor(public modalServide: NgbModal, public taskService: TaskService) {}
+
+  constructor(public modalServide: NgbModal, public taskService: TaskService, public observableNofityService:ObservableNotifyService) {
+    this.observableNofityService.updateInTask().subscribe((res) => {
+      if (res) {
+        this.getTaskList();
+      }
+    });
+  }
   ngOnInit(): void {
     // saving dummy user
     let taskList: Task[] =
@@ -40,9 +49,23 @@ export class AppComponent {
           },
         ])
       );
-    }
+    };
+
+    this.getTaskList();
   }
 
+  getTaskList() {
+    this.taskService.getAllTask().subscribe({
+      next: (taskListRes) => {
+        if (taskListRes.status_code == 200) {
+          this.taskList = taskListRes.body;
+        }
+      },
+      error: (error: any) => {
+        console.error("Error fetching tasks", error);
+      },
+    });
+  };
   addNewTask() {
     this.modalServide.open(this.addTaskTemp);
   }
