@@ -35,7 +35,7 @@
             class="form-select action_drop"
             aria-label="Default select example"
             #taskActionvalue
-            (click)="taskAction(taskActionvalue.value, task.id)"
+            (click)="taskAction(taskActionvalue.value, task)"
           >
             <option value="edit">Edit</option>
             <option value="delete">Delete</option>
@@ -68,24 +68,26 @@
   </div>
 </div>
 
-<ng-template #deleteTask>
-  <div class="modal-header">
-    <h5 class="modal-title" id="modal-basic-title">Delete</h5>
-    <button
-      type="button"
-      class="close"
-      data-dismiss="modal"
-      aria-label="Close"
-      (click)="this.modalServide.dismissAll()"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
+<ng-template #deleteTaskTem>
+  <div class="modal-header bg-danger text-light">
+    <div class="d-flex w-100 position-relative justify-content-center ">
+      <h5 class="modal-title" id="modal-basic-title font-weight-bold">Delete</h5>
+      <span
+        type="button"
+        class="close close-icon text-light"
+        data-dismiss="modal"
+        aria-label="Close"
+        (click)="this.modalServide.dismissAll()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </span>
+    </div>
   </div>
   <div class="modal-body">
-    <p>Do you want to delete task</p>
+    <p>Do you want to delete task {{this.task.assignedTo}}</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-success" data-dismiss="modal">
+    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="deleteTask()">
       Yes
     </button>
     <button

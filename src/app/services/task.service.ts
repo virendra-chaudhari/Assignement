@@ -11,7 +11,7 @@ export class TaskService {
 
   saveTask(taskObj:Task):Observable<any>{
     let taskList: Task[] = JSON.parse(localStorage.getItem('taskList') as string) || [];
-    let updateTaskList = [...taskList,taskObj];
+    let updateTaskList = [taskObj,...taskList];
     localStorage.setItem('taskList',JSON.stringify(updateTaskList));
     return of({
       status_code:200,
@@ -46,6 +46,17 @@ export class TaskService {
       status_code:200,
       message:'Task Updated successfully',
       body: task
+    });
+  };
+
+  deleteTask(taskId:string):Observable<any> {
+    let taskList: Task[] = JSON.parse(localStorage.getItem('taskList') as string) || [];
+    let updateTaskList = taskList.filter(t => t.id!= taskId);
+    localStorage.setItem('taskList',JSON.stringify(updateTaskList));
+    return of({
+      status_code:200,
+      message:'Task Deleted successfully',
+      body: null
     });
   }
 }
