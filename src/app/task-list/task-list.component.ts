@@ -12,7 +12,6 @@ import { TaskService } from "../services/task.service";
 })
 export class TaskListComponent {
   constructor(
-    public observableNofityService: ObservableNotifyService,
     public taskService: TaskService
   ) {
    
@@ -21,21 +20,9 @@ export class TaskListComponent {
   @Output() taskEmitter =  new EventEmitter<string>()
 
   ngOnInit(): void {
-   // this.getTaskList()
   }
 
- /*  getTaskList() {
-    this.taskService.getAllTask().subscribe({
-      next: (taskListRes) => {
-        if (taskListRes.status_code == 200) {
-          this.taskList = taskListRes.body;
-        }
-      },
-      error: (error: any) => {
-        console.error("Error fetching tasks", error);
-      },
-    });
-  }; */
+ 
 
   taskAction(action:string, taskId:string){
     switch(action){

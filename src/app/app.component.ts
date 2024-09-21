@@ -8,23 +8,42 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { CommonModule } from "@angular/common";
 import { TaskService } from "./services/task.service";
 import { Task } from "./interface/task.interface";
-import { Subject } from "rxjs";
+import { debounceTime, distinctUntilChanged, Subject } from "rxjs";
 import { ObservableNotifyService } from "./services/observable-notify.service";
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+} from "@angular/forms";
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [RouterOutlet, TaskListComponent, TaskFormComponent, CommonModule],
+  imports: [
+    RouterOutlet,
+    TaskListComponent,
+    TaskFormComponent,
+    CommonModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.css",
 })
 export class AppComponent {
   title = "engigma-assignment";
   task!: Task;
-  taskList:Task[]= []
+  taskList: Task[] = [];
+  allTaskBackup: Task[] = [];
+  currentPage: number = 1;
+  pageSize: number = 10;
+  public searchTask: UntypedFormControl = new UntypedFormControl();
   taskEmitterObservable: Subject<Task> = new Subject<Task>();
   @ViewChild("addTaskTemp") addTaskTemp!: ElementRef;
 
-  constructor(public modalServide: NgbModal, public taskService: TaskService, public observableNofityService:ObservableNotifyService) {
+  constructor(
+    public modalServide: NgbModal,
+    public taskService: TaskService,
+    public observableNofityService: ObservableNotifyService
+  ) {
     this.observableNofityService.updateInTask().subscribe((res) => {
       if (res) {
         this.getTaskList();
@@ -32,6 +51,29 @@ export class AppComponent {
     });
   }
   ngOnInit(): void {
+    this.searchTask.valueChanges
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((searchText) => {
+        if (searchText.length) {
+          const lowercasedTerm = searchText.toLowerCase();
+          // Filter the array based on the search term in either 'name' or 'comments' or 'priority' or 'status'
+          const filteredData = this.allTaskBackup.filter(
+            (item) =>
+              item.assignedTo.toLowerCase().includes(lowercasedTerm) ||
+              item.comment.toLowerCase().includes(lowercasedTerm) ||
+              item.status.toLowerCase().includes(lowercasedTerm) ||
+              item.priority.toLowerCase().includes(lowercasedTerm)
+          );
+          this.taskList = filteredData;
+        } else {
+          const startIndex = (this.currentPage - 1) * this.pageSize;
+          this.taskList = this.allTaskBackup.slice(
+            startIndex,
+            startIndex + this.pageSize
+          );
+        }
+      });
+
     // saving dummy user
     let taskList: Task[] =
       JSON.parse(localStorage.getItem("taskList") as string) || [];
@@ -49,7 +91,7 @@ export class AppComponent {
           },
         ])
       );
-    };
+    }
 
     this.getTaskList();
   }
@@ -59,13 +101,14 @@ export class AppComponent {
       next: (taskListRes) => {
         if (taskListRes.status_code == 200) {
           this.taskList = taskListRes.body;
+          this.allTaskBackup = [...taskListRes.body];
         }
       },
       error: (error: any) => {
         console.error("Error fetching tasks", error);
       },
     });
-  };
+  }
   addNewTask() {
     this.modalServide.open(this.addTaskTemp);
   }
