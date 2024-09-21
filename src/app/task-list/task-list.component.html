@@ -17,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (task of taskList; track $index) {
+      @for (task of taskList | slice: (page-1) * pageSize : page * pageSize; track task) {
       <tr>
         <td>
           <span class="custom-checkbox">
@@ -48,22 +48,22 @@
   <div class="clearfix p-2">
     <!-- <div class="">Showing <b>5</b> out of <b>25</b> entries</div> -->
     <div class="hint-text">
-      <select class="form-select page_drop" aria-label="Default select example">
+      <select
+        class="form-select page_drop"
+        aria-label="Default select example"
+        [(ngModel)]="pageSize"
+      >
         <option value="5">5</option>
         <option value="10">10</option>
         <option value="20">20</option>
       </select>
     </div>
     <ul class="pagination border">
-      <li class="page-item disabled"><a href="#" class="page-link">First</a></li>
-      <li class="page-item disabled"><a href="#" class="page-link">Prev</a></li>
-      <li class="page-item"><a href="#" class="page-link">1</a></li>
-      <li class="page-item"><a href="#" class="page-link">2</a></li>
-      <li class="page-item active"><a href="#" class="page-link">3</a></li>
-      <li class="page-item"><a href="#" class="page-link">4</a></li>
-      <li class="page-item"><a href="#" class="page-link">5</a></li>
-      <li class="page-item"><a href="#" class="page-link">Next</a></li>
-      <li class="page-item"><a href="#" class="page-link">Last</a></li>
+      <ngb-pagination
+        [(page)]="page"
+        [pageSize]="pageSize"
+        [collectionSize]="taskList.length"
+      />
     </ul>
   </div>
 </div>
