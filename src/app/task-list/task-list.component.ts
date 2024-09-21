@@ -12,7 +12,7 @@ import { TaskService } from "../services/task.service";
   styleUrl: "./task-list.component.css",
 })
 export class TaskListComponent {
-  @ViewChild("addTaskTemp") deleteTaskTemp!: ElementRef;
+  @ViewChild("deleteTask") deleteTask!: ElementRef;
   
   constructor(
     public observableNofityService: ObservableNotifyService,
@@ -35,7 +35,7 @@ export class TaskListComponent {
   taskAction(action:string, taskId:string){
     switch(action){
       case 'delete':
-              this.modalServide.open(this.deleteTaskTemp);
+              this.modalServide.open(this.deleteTask);
               break;
             case 'edit':
               this.taskEmitter.emit(taskId)
