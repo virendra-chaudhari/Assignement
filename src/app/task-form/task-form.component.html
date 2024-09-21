@@ -2,7 +2,7 @@
     <div class="row justify-content-center">
       <div class="col-lg-9">
         <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">New Task</h4>
+          <h4 class="modal-title" id="modal-basic-title">{{!this.task ? 'New Task':'Update Task'}}</h4>
           <button (click)=" modalService.dismissAll()"
             type="button"
             class="btn-close"
@@ -85,8 +85,8 @@
                 <button type="submit" class="btn btn-dark w-100 fw-bold" (click)="modalService.dismissAll()">
                   Cancel
                 </button>
-                <button type="submit" class="btn btn-dark w-100 fw-bold" [disabled]="!addNewTaskForm.valid" (click)="saveNewTask()">
-                  Save
+                <button type="submit" class="btn btn-dark w-100 fw-bold" [disabled]="!addNewTaskForm.valid" (click)="this.task? updateTask():saveNewTask()">
+                  {{this.task ? "Update":"Save"}}
                 </button>
               </div>
             </div>

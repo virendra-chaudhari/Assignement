@@ -37,7 +37,7 @@
       </div>
       <div class="row">
         <div class="col-2 col-sm-12 col-md-12 col-lg-12">
-          <app-task-list></app-task-list>
+          <app-task-list (taskEmitter)="getTaskById($event)" ></app-task-list>
         </div>
       </div>
     </div>
@@ -45,7 +45,7 @@
 </div>
 
 <ng-template #addTaskTemp>
-  <app-task-form></app-task-form>
+  <app-task-form [taskDetailsObservable$]="taskEmitterObservable"></app-task-form>
 </ng-template>
 
 <!-- 

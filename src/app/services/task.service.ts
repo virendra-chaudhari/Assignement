@@ -27,5 +27,25 @@ export class TaskService {
       message:'Task List',
       body: taskList
     });
+  };
+  getTaskById(taskId: string): Observable<any> {
+    let taskList: Task[] = JSON.parse(localStorage.getItem('taskList') as string) || [];
+    let task = taskList.find(t => t.id == taskId);
+    return of({
+      status_code: 200,
+      message: 'Task Found',
+      body: task
+    });
+  }
+
+  updateTask(task:Task):Observable<any>{
+    let taskList: Task[] = JSON.parse(localStorage.getItem('taskList') as string) || [];
+    let updateTaskList = taskList.map(t => t.id == task.id? task : t);
+    localStorage.setItem('taskList',JSON.stringify(updateTaskList));
+    return of({
+      status_code:200,
+      message:'Task Updated successfully',
+      body: task
+    });
   }
 }

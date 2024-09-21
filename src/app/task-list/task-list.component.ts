@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { ObservableNotifyService } from "../services/observable-notify.service";
 import { Task } from "../interface/task.interface";
 import { TaskService } from "../services/task.service";
@@ -22,6 +22,7 @@ export class TaskListComponent {
     });
   }
   taskList: Task[] = [];
+  @Output() taskEmitter =  new EventEmitter<string>()
 
   ngOnInit(): void {
     this.getTaskList()
@@ -46,7 +47,7 @@ export class TaskListComponent {
               // code to delete task
               break;
             case 'edit':
-            
+              this.taskEmitter.emit(taskId)
               break;
             default:
               // code to do nothing
