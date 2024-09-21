@@ -9,3 +9,12 @@
     justify-content: center;
     color: #3e3e3e;
   }
+
+  .search-icon {
+    top: 9px;
+    padding-right: 17px !important;
+  }
+
+  .add-new-task {
+    border-right: 2px solid white;
+  }
