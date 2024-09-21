@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from "@angular/core";
+import { Component, ElementRef, EventEmitter, Output, ViewChild, Input } from "@angular/core";
 import { ObservableNotifyService } from "../services/observable-notify.service";
 import { Task } from "../interface/task.interface";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -21,17 +21,17 @@ export class TaskListComponent {
   ) {
     this.observableNofityService.updateInTask().subscribe((res) => {
       if (res) {
-        this.getTaskList();
+        //this.getTaskList();
       }
     });
   }
-  taskList: Task[] = [];
+  @Input() taskList:Task[] = []
   @Output() taskEmitter =  new EventEmitter<string>()
   ngOnInit(): void {
-    this.getTaskList()
+   // this.getTaskList()
   }
 
-  getTaskList() {
+ /*  getTaskList() {
     this.taskService.getAllTask().subscribe({
       next: (taskListRes) => {
         if (taskListRes.status_code == 200) {
@@ -42,7 +42,7 @@ export class TaskListComponent {
         console.error("Error fetching tasks", error);
       },
     });
-  };
+  }; */
 
   taskAction(action:string, taskId:string){
     switch(action){
